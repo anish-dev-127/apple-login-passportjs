@@ -2,6 +2,6 @@
   "client_id": "com.civicanish.test",
   "team_id": "RF7HVAP86K",
   "key_id": "X48L588XC4",
-  "redirect_uri": "https://civic365.azurewebsites.net/auth",
+  "redirect_uri": "https://applecheck.azurewebsites.net/auth",
   "scope": "name email"
 }

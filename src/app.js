@@ -17,11 +17,11 @@ let auth = new AppleAuth(
 
 app.get("/", (req, res) => {
   console.log(Date().toString() + "GET /");
-  res.send(`<a href="${auth.loginURL()}">Sign in with Apple</a>`);
+  return res.send(`<a href="${auth.loginURL()}">Sign in with Apple</a>`);
 });
 
 app.get("/token", (req, res) => {
-  res.send(auth._tokenGenerator.generate());
+  return res.send(auth._tokenGenerator.generate());
 });
 
 app.post("/auth", bodyParser(), async (req, res) => {
@@ -30,21 +30,24 @@ app.post("/auth", bodyParser(), async (req, res) => {
     console.log(Date().toString() + "GET /auth");
     const response = await auth.accessToken(req.body.code);
     const idToken = jwt.decode(response.id_token);
-
+    console.log({ response });
+    console.log("body", req.body);
     const user = {};
     user.id = idToken.sub;
-
-    if (idToken.email) user.email = idToken.email;
+    console.log({ idToken });
+    if (idToken?.email) user.email = idToken.email;
+    if (idToken?.name) user.name = idToken.name;
     if (req.body.user) {
-      console.log(req);
+      //   console.log(req);
       const { name } = JSON.parse(req.body.user);
       user.name = name;
     }
 
-    res.json(user);
+    console.log({ user });
+    return res.json(user);
   } catch (ex) {
     console.error(ex);
-    res.send("An error occurred!");
+    return res.send("An error occurred!");
   }
 });
 
@@ -59,6 +62,6 @@ app.get("/refresh", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Listening ");
 });

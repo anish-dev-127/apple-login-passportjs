@@ -4,7 +4,8 @@
   "description": "Apple Auth Example",
   "main": "src/app.js",
   "scripts": {
-    "start": "nodemon src/app.js",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ananay Arora <i@ananayarora.com> (https://ananayarora.com)",
@@ -16,6 +17,9 @@
     "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
     "nodemon": "^3.1.0"
   }
 }
